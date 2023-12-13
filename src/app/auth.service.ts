@@ -45,7 +45,7 @@ export class AuthService {
   sendFiles(file: File[]): boolean {
     var resp: boolean = false
     var cont = 0;
-    
+
     file.forEach(item =>{
       this.formData.append(`file${ cont+ 1}`, item, item.name)
       cont++;
@@ -53,7 +53,6 @@ export class AuthService {
     this.http.post<string>(`${this.apiUrl}/subirarchivo`, this.formData).subscribe(response => {
       resp = (response = "SI") ? true : false
     })
-
     return resp;
   }
 }
