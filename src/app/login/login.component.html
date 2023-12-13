@@ -1,0 +1,32 @@
+<div class="center-container">
+    <form [formGroup]="login" style="width: 300px;">
+      <p style="text-align: center;">
+        <img src="../../assets/ic_launcher.png">
+      </p>
+  
+      <div class="flex">
+        <mat-form-field class="flex-auto" style="width: 100%;">
+          <mat-label>Usuario</mat-label>
+          <input style="width: 100%;" id="username" class="text-left" type="text" formControlName="username" matInput (change)="limpiarError()">
+          <mat-error> El usuario es requerido </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex">
+        <mat-form-field class="flex-auto" style="width: 100%;">
+          <mat-label>Contraseña</mat-label>
+          <input style="width: 100%;" id="password" class="text-left" type="password" formControlName="password" matInput (change)="limpiarError()">
+          <mat-error> La contraseña es requerido </mat-error>
+        </mat-form-field>
+      </div>
+      <span *ngIf="error.length>0">
+        <p style="text-align: center;color: red;">{{error}}</p>
+      </span>
+      <button class="fuse-mat-button-large w-full mt-6" mat-flat-button [color]="'primary'" [disabled]="login.disabled"
+        (click)="iniciarSesion()" style="width: 100%;">
+        <span *ngIf="!login.disabled">
+          Iniciar Sesion
+        </span>
+        <mat-progress-spinner *ngIf="login.disabled" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+      </button>
+    </form>
+  </div>

@@ -1,0 +1,13 @@
+<div class="center-container">
+    <div class="center-container" style="width: 500px;flex-direction:column;">
+        <input type="file" id="fileupload" name="fileupload" multiple="multiple" accept="{{accept}}" />
+        <br />
+        <button class="fuse-mat-button-large w-full mt-6" mat-flat-button [color]="'primary'" (click)="onclick()"
+            style="width: 100%;">
+            <span>
+                Enviar
+            </span>
+            <mat-progress-spinner *ngIf="disabled" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+        </button>
+    </div>
+</div>
