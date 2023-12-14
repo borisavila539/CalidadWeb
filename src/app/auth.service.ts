@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from './Interfaces/user.interface';
 import { Router } from '@angular/router';
+import { responseInterface } from './Interfaces/response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -42,17 +43,14 @@ export class AuthService {
     this.loggedIn = false;
   }
 
-  sendFiles(file: File[]): boolean {
-    var resp: boolean = false
+  async sendFiles(file: File[]): Promise<responseInterface[]|undefined> {
     var cont = 0;
 
-    file.forEach(item =>{
-      this.formData.append(`file${ cont+ 1}`, item, item.name)
+    file.forEach(item => {
+      this.formData.append(`file${cont + 1}`, item, item.name)
       cont++;
     })
-    this.http.post<string>(`${this.apiUrl}/subirarchivo`, this.formData).subscribe(response => {
-      resp = (response = "SI") ? true : false
-    })
-    return resp;
+    
+    return await this.http.post<responseInterface[]>(`${this.apiUrl}/subirarchivo`, this.formData).toPromise();
   }
 }

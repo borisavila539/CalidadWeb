@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { responseInterface } from '../Interfaces/response.interface';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,8 @@ export class HomeComponent implements OnInit {
   @Input() accept = '.xlsx'
   disabled: boolean = false
   fileList: File[] = [];
+  buttonText: string = "Enviar";
+  respuesta: responseInterface[] = [];
 
   constructor(private authService: AuthService, private router: Router) {
 
@@ -24,11 +27,16 @@ export class HomeComponent implements OnInit {
   onclick(): void {
 
     this.disabled = true;
+    this.buttonText = "";
     const selectedFile = (document.getElementById('fileupload') as HTMLInputElement).files;
-    var resp = this.authService.sendFiles(Array.from(selectedFile||[]))
-    console.log(resp)
+    this.respuesta = [];
+    if ((selectedFile?.length ? selectedFile?.length : 0) > 0) {
+      this.authService.sendFiles(Array.from(selectedFile || [])).then(resp => {
+        this.respuesta = resp ? resp : []
+        this.buttonText = "Enviar";
+        this.disabled = false;
+      })
 
-    this.disabled = false;
+    }
   }
-
 }

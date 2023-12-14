@@ -1,13 +1,22 @@
 <div class="center-container">
     <div class="center-container" style="width: 500px;flex-direction:column;">
+        <h1>Subir Archivos</h1>
         <input type="file" id="fileupload" name="fileupload" multiple="multiple" accept="{{accept}}" />
         <br />
-        <button class="fuse-mat-button-large w-full mt-6" mat-flat-button [color]="'primary'" (click)="onclick()"
+        <button class="fuse-mat-button-large w-full mt-6" mat-flat-button [color]="'primary'" (click)="onclick()" [disabled]="disabled"
             style="width: 100%;">
             <span>
-                Enviar
+                {{buttonText}}
             </span>
             <mat-progress-spinner *ngIf="disabled" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
         </button>
+
+        <div style="width: 100%;" *ngIf="!disabled && respuesta.length > 0">
+            <h2>Mensajes de envio:</h2>
+            <ul style="text-align: left;">
+                <li *ngFor="let item of respuesta">{{item.response}}</li>
+            </ul>
+        </div>
+
     </div>
 </div>
