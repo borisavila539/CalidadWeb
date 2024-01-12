@@ -29,14 +29,16 @@ export class HomeComponent implements OnInit {
     this.disabled = true;
     this.buttonText = "";
     const selectedFile = (document.getElementById('fileupload') as HTMLInputElement).files;
+    //debugger
     this.respuesta = [];
     if ((selectedFile?.length ? selectedFile?.length : 0) > 0) {
-      this.authService.sendFiles(Array.from(selectedFile || [])).then(resp => {
+      this.authService.sendFiles(Array.from(selectedFile || [])).subscribe(resp => {
+        //debugger
         this.respuesta = resp ? resp : []
         this.buttonText = "Enviar";
         this.disabled = false;
       })
-
     }
+
   }
 }
